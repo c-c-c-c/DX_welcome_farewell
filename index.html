@@ -1,40 +1,65 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>テキストと画像表示</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
+
+      flex-direction: column;
       height: 100vh;
-      font-family: sans-serif;
     }
-    .left {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      border-right: 1px solid #ccc;
-      background-color: #f9f9f9;
-    }
-    .right {
-      flex: 1;
+
+    .main-image {
+      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #fff;
+      background-color: #f0f0f0;
     }
-    img {
+
+    .main-image img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .bottom {
+      flex: 1;
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    .left-text, .right-image {
+      flex: 1;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .left-text {
+      background-color: #f9f9f9;
+      border-right: 1px solid #ccc;
+      white-space: pre-wrap;
+    }
+
+    .right-image {
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .right-image img {
       max-width: 100%;
       max-height: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="left" id="text-container">読み込み中...</div>
-  <div class="right">
-    <img src="https://yoshimura-x2image.s3.ap-northeast-1.amazonaws.com/copied_image.jpg" alt="画像">
+  <!-- メイン画像 -->
+  <div class="main-image">
+    <img src="image.png" alt="メイン画像">
+  </div>
+
+  <!-- 下部の2カラム -->
+  <div class="bottom">
+    <div class="left-text" id="text-container">読み込み中...</div>
+    <div class="right-image">
+      <img src="https://yoshimura-x2image.s3.ap-northeast-1.amazonaws.com/copied_image.jpg" alt="右下の画像">
+    </div>
   </div>
 
   <script>
@@ -45,7 +70,7 @@
       })
       .catch(error => {
         document.getElementById('text-container').textContent = 'テキストの読み込みに失敗しました。';
-        console.error('Error loading text:', error);
+        console.error('読み込みエラー:', error);
       });
   </script>
 </body>
